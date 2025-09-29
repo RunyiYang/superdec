@@ -135,16 +135,15 @@ bash scripts/run_on_scene.sh
 ```
 
 ## 🤖 Robot Path Planning 
-We use ompl to demo path planning with superdec: 
+We use ompl to demo path planning with SuperDec: 
 ```bash
 # Install omply python bindings
-ompl==1.7.0
+pip install ompl==1.7.0
 # Run path planning in a given decomposd scene 
 python demo_planning.py
 ```
-You can adjust the start and goal positions, as well as the collision radius in the script.
-this will create a .npz dataset of your objects, save the .npz inference file with superquadric parameters, and visualize the results. 
-
+You can adjust the start and goal positions, as well as the collision radius in the script. This will create a .npz dataset of your objects, save the .npz inference file with superquadric parameters, and visualize the results. 
+> **Note:** Running this demo requires a display interface.
 
 ## 🙏  Acknowledgements
 We adapted some codes from some awesome repositories including [superquadric_parsing](https://github.com/paschalidoud/superquadric_parsing), [CuboidAbstractionViaSeg](https://github.com/SilenKZYoung/CuboidAbstractionViaSeg), [volumentations](https://github.com/kumuji/volumentations), [LION](https://github.com/nv-tlabs/LION), [occupancy_networks](https://github.com/autonomousvision/occupancy_networks), and [convolutional_occupancy_networks](https://github.com/autonomousvision/convolutional_occupancy_networks). Thanks for making codes and data public available.
