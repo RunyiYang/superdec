@@ -134,7 +134,7 @@ We assume you have the .ply files of all the segmented objects in a single folde
 bash scripts/run_on_scene.sh 
 ```
 
-## Robot Path Planning 
+## 🤖 Robot Path Planning 
 We use ompl to demo path planning with superdec: 
 ```bash
 # Install omply python bindings
@@ -151,7 +151,7 @@ We adapted some codes from some awesome repositories including [superquadric_par
 
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit issues, feature requests, or pull requests. For more specific questions or collaborations, please contact [Elisabetta](mailto:efedele@ethz.ch).
+We welcome contributions! Please feel free to submit issues, feature requests, or pull requests. For more specific questions or collaborations, please contact [Elisabetta](mailto:efedele@ethz.ch) and [Boyang](mailto:boysun@ethz.ch).
 
 
 ## 🛣️ Roadmap
@@ -159,6 +159,6 @@ We welcome contributions! Please feel free to submit issues, feature requests, o
 - [x] Core implementation and visualization
 - [x] ShapeNet training and evaluation
 - [ ] Instance segmentation pipeline
-- [ ] Path planning 
+- [x] Path planning 
 - [ ] Grasping 
 - [ ] Superquadric-conditioned image generation
