@@ -114,6 +114,7 @@ bash scripts/run_on_shapenet.sh
 ### Training (optional)
 
 If you want to retrain the network yourself you can either opt for single or multi-gpu training as follows.
+
 **Single GPU training:**
 ```bash
 python train/train.py "optimizer.lr=1e-4"
