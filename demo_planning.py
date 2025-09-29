@@ -15,7 +15,7 @@ def from_z_to_y_up(pc): # for scannet only
 def main():
     # params
     bound = {"low_x": -10, "high_x": 10, "low_y": -1.5, "high_y": -1.0, "low_z": -10, "high_z": 10}
-    superdec_scene = Scene("/home/boysun/superdec/examples/scene_room0.npz")
+    superdec_scene = Scene("output_npz/example_scene.npz")
     collision_radius = 0.2
     waypoints = [
         {"pos": np.array([1.14, 2, -1.1]), "quat": np.array([0, 0, 0, 1])},  # start

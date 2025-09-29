@@ -140,7 +140,7 @@ We use ompl to demo path planning with superdec:
 # Install omply python bindings
 ompl==1.7.0
 # Run path planning in a given decomposd scene 
-python superdec/demo_planning.py
+python demo_planning.py
 ```
 You can adjust the start and goal positions, as well as the collision radius in the script.
 

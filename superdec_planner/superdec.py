@@ -28,6 +28,7 @@ def generate_ncolors(num):
 
 class Superquadrics:
     def __init__(self, path_to_sq_parameters):
+        print(f"Loading superquadrics from {path_to_sq_parameters}")
         parameters = np.load(path_to_sq_parameters)
         exists = parameters['exist']            # (N, K, 1)
         scales = parameters['scale']            # (N, K, ...)
