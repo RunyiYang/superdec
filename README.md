@@ -72,8 +72,23 @@ Once downloaded the checkpoints you can run an inference example by doing:
 python demo_viser.py
 ```
 
-### Project Structure
-After having downloaded ShapeNet and the checkpoints, the following project structure is expected:
+<p align="center">
+  <img src="https://super-dec.github.io/static/figures/compressed/viser/overlay.jpeg" width="32%" />
+  <img src="https://super-dec.github.io/static/figures/compressed/viser/sq.jpeg" width="32%" />
+  <img src="https://super-dec.github.io/static/figures/compressed/viser/seg.jpeg" width="32%" />
+</p>
+
+## 🪑 Inference on ShapeNet 
+
+### Download Data
+
+Download the ShapeNet dataset (73.4 GB):
+
+```bash
+bash scripts/download_shapenet.sh
+```
+
+The dataset will be saved to `data/ShapeNet/`. After having downloaded ShapeNet and the checkpoints, the following project structure is expected:
 ```
 superdec/
 ├── checkpoints/          # Checkpoints storage
@@ -88,21 +103,17 @@ superdec/
 ├── train/                # Training scripts
 └── requirements.txt      # Dependencies
 ```
+### Inference and visualization on test set
 
-## 🎯 Usage
-
-### Download Data
-
-Download the ShapeNet dataset (73.4 GB):
-
+Generate and visualize results on ShapeNet test set:
 ```bash
-bash scripts/download_shapenet.sh
+bash scripts/run_on_shapenet.sh 
 ```
+> **Note:** Saving the .npz file and mesh generation may take time depending on the size of the dataset and of the chosen resolution for the superquadrics, respectively.
 
-The dataset will be saved to `data/ShapeNet/`.
+### Training (optional)
 
-### Training
-
+If you want to retrain the network yourself you can either opt for single or multi-gpu training as follows.
 **Single GPU training:**
 ```bash
 python train/train.py "optimizer.lr=1e-4"
@@ -114,27 +125,16 @@ torchrun --nproc_per_node=4 train/train.py
 ```
 > **Note:** Weights & Biases is disabled by default but you can activate it in the [training config](configs/train.yaml).
 
-### Evaluation and Visualization
 
-Generate and visualize results on ShapeNet test set:
 
+## 🏡 Inference on Full Scenes 
+Enter the path to  [training config](configs/train.yaml).
+We assume you have the .ply files of all the segmented objects in a single folder OBJECTS_SCENE_DIR (suggestions for other input formats are welcome!). Fill required fields in the [script](scripts/run_on_scene.sh) following the given instructions. Now you are ready to run inference by doing:
 ```bash
-# Convert results to NPZ format
-python superdec/evaluate/to_npz.py
-
-# Visualize results using viser
-python superdec/visualization/object_visualizer.py
+bash scripts/run_on_scene.sh 
 ```
 
-> **Note:** Saving the .npz file and mesh generation may take time depending on the size of the dataset and of the chosen resolution for the superquadrics, respectively.
-
-<p align="center">
-  <img src="https://super-dec.github.io/static/figures/compressed/viser/overlay.jpeg" width="32%" />
-  <img src="https://super-dec.github.io/static/figures/compressed/viser/sq.jpeg" width="32%" />
-  <img src="https://super-dec.github.io/static/figures/compressed/viser/seg.jpeg" width="32%" />
-</p>
-
-### Robot Path Planning 
+## Robot Path Planning 
 We use ompl to demo path planning with superdec: 
 ```bash
 # Install omply python bindings
@@ -143,6 +143,8 @@ ompl==1.7.0
 python demo_planning.py
 ```
 You can adjust the start and goal positions, as well as the collision radius in the script.
+this will create a .npz dataset of your objects, save the .npz inference file with superquadric parameters, and visualize the results. 
+
 
 ## 🙏  Acknowledgements
 We adapted some codes from some awesome repositories including [superquadric_parsing](https://github.com/paschalidoud/superquadric_parsing), [CuboidAbstractionViaSeg](https://github.com/SilenKZYoung/CuboidAbstractionViaSeg), [volumentations](https://github.com/kumuji/volumentations), [LION](https://github.com/nv-tlabs/LION), [occupancy_networks](https://github.com/autonomousvision/occupancy_networks), and [convolutional_occupancy_networks](https://github.com/autonomousvision/convolutional_occupancy_networks). Thanks for making codes and data public available.

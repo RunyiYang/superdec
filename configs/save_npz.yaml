@@ -1,5 +1,6 @@
 checkpoints_folder: checkpoints/shapenet
 checkpoint_file: ckpt.pt
+output_dir: output_npz
 config_file: config.yaml
 device: "cuda"
 dataset: shapenet
@@ -12,8 +13,8 @@ shapenet:
   normalize: false
   categories: null
 scene:
-  path: PATH_TO_YOUR_SCENE_DATASET
-  name: SCENE_ID
+  path: data
+  name: scene_example
   z_up: true
   gt: true
 evaluation:

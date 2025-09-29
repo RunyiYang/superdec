@@ -13,7 +13,13 @@ RESOLUTION = 30
 
 def main(cfg: DictConfig) -> None:
   server = viser.ViserServer()
-  input_path = os.path.join(cfg.base_path, cfg.name_checkpoint_folder, f'{cfg.dataset}_{cfg.split}.npz')
+  if cfg.dataset not in ['shapenet', 'scene']:
+    raise NotImplementedError(f"Dataset {cfg.dataset} not implemented for visualization yet.")
+
+  if cfg.dataset == 'shapenet':
+    input_path = os.path.join(cfg.npz_folder, f'{cfg.dataset}_{cfg.split}.npz')
+  elif cfg.dataset == 'scene':
+    input_path = os.path.join(cfg.npz_folder, f'{cfg.split}.npz')
   print("Opening npz...")
   predictions_sq = PredictionHandler.from_npz(input_path)
   print("Computing meshes...")
@@ -27,15 +33,13 @@ def main(cfg: DictConfig) -> None:
 
   if cfg.dataset == 'scene': # visualization for scenes
     server.scene.set_up_direction([0.0, 1.0, 0.0])
-    int_ids = np.array([int(name) for name in names])
-    colors = generate_ncolors(max(int_ids)+1)/255 #(max(int_ids)+1)/255
-
-
+    num_objects = len(meshes)
+    colors = generate_ncolors(num_objects)/255 #(max(int_ids)+1)/255
     for idx in range(len(meshes)):
-      if meshes[idx] == None or not existence_mesh[idx] or int(names[idx]) == 0:# int(names[idx]) >= 50 ormeshes[idx] == None or int(names[idx]) >= 50: # TODO for now I am only taking the first 200 objects, modify this
+      if meshes[idx] == None or not existence_mesh[idx]:# int(names[idx]) >= 50 ormeshes[idx] == None or int(names[idx]) >= 50: # TODO for now I am only taking the first 200 objects, modify this
         continue
-      meshes[idx].visual.face_colors = np.ones((meshes[idx].visual.face_colors.shape[0], 3)) * colors[int(names[idx])]
-      meshes[idx].visual.vertex_colors = np.ones((meshes[idx].visual.vertex_colors.shape[0], 3)) * colors[int(names[idx])]
+      meshes[idx].visual.face_colors = np.ones((meshes[idx].visual.face_colors.shape[0], 3)) * colors[idx]
+      meshes[idx].visual.vertex_colors = np.ones((meshes[idx].visual.vertex_colors.shape[0], 3)) * colors[idx]
       server.scene.add_mesh_trimesh(f"superquadrics_{names[idx]}", mesh=meshes[idx], visible=True)
     
       server.scene.add_point_cloud(

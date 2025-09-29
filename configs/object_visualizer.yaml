@@ -1,5 +1,4 @@
 dataset: shapenet # or scene
 split: test # or train, val | scene ID for scenes
-name_checkpoint_folder: shapenet
-base_path: checkpoints
+npz_folder: output_npz # path to the npz file
 resolution: 30 # resolution of the superquadrics

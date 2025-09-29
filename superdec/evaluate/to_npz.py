@@ -20,8 +20,11 @@ def main(cfg: DictConfig) -> None:
         z_up = False
     elif cfg.dataset == 'scene':
         dataset = Scene(cfg=cfg)
-        filename = f'{cfg.dataset}_{cfg.scene.name}.npz'
+        filename = f'{cfg.scene.name}.npz'
         z_up = cfg.scene.z_up
+
+    if not os.path.exists(cfg.output_dir):
+        os.makedirs(cfg.output_dir)
 
     dataloader = DataLoader(dataset, batch_size=cfg.dataloader.batch_size, shuffle=False, num_workers=cfg.dataloader.num_workers)
     ckp_path = os.path.join(cfg.checkpoints_folder, cfg.checkpoint_file)
@@ -50,8 +53,8 @@ def main(cfg: DictConfig) -> None:
             else:
                 pred_handler.append_outdict(outdict, points, names)
 
-    pred_handler.save_npz(os.path.join(cfg.checkpoints_folder, filename)) # this step takes a lot of time (~1 minute)
-    print(f"Results saved to {os.path.join(cfg.checkpoints_folder, filename)}")
+    pred_handler.save_npz(os.path.join(cfg.output_dir, filename)) # this step takes a lot of time (~1 minute)
+    print(f"Results saved to {os.path.join(cfg.output_dir, filename)}")
 
 
 if __name__ == "__main__":
