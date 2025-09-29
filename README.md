@@ -128,8 +128,7 @@ torchrun --nproc_per_node=4 train/train.py
 
 
 ## 🏡 Inference on Full Scenes 
-Enter the path to  [training config](configs/train.yaml).
-We assume you have the .ply files of all the segmented objects in a single folder OBJECTS_SCENE_DIR (suggestions for other input formats are welcome!). Fill required fields in the [script](scripts/run_on_scene.sh) following the given instructions. Now you are ready to run inference by doing:
+We assume you have the .ply files of all the segmented objects in a single folder OBJECTS_SCENE_DIR. Fill required fields in the [script](scripts/run_on_scene.sh), following the given instructions. Now you are ready to run inference by doing:
 ```bash
 bash scripts/run_on_scene.sh 
 ```
